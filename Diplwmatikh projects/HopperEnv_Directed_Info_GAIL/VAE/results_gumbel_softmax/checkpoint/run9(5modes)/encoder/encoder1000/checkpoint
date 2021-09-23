@@ -1,0 +1,6 @@
+model_checkpoint_path: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/encoder/encoder1000/encoder_model_e999-i49984.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/encoder/encoder_test/encoder_model_e600-i49984.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/encoder/encoder_test/encoder_model_e700-i49984.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/encoder/encoder_test/encoder_model_e800-i49984.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/encoder/encoder_test/encoder_model_e900-i49984.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/encoder/encoder1000/encoder_model_e999-i49984.ckpt"

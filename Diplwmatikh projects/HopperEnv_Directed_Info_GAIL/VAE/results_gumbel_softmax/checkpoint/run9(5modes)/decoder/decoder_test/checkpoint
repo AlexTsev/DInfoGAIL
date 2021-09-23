@@ -1,0 +1,6 @@
+model_checkpoint_path: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/decoder/decoder_test/decoder_model_e1900-i49984.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/decoder/decoder_test/decoder_model_e1500-i49984.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/decoder/decoder_test/decoder_model_e1600-i49984.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/decoder/decoder_test/decoder_model_e1700-i49984.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/decoder/decoder_test/decoder_model_e1800-i49984.ckpt"
+all_model_checkpoint_paths: "C:\\Users\\Demeter\\Desktop\\alex folder\\python projects\\Hopper\\VAE/results_gumbel_softmax/checkpoint/run9(5modes)/decoder/decoder_test/decoder_model_e1900-i49984.ckpt"

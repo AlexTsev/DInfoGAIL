@@ -1,0 +1,2 @@
+model_checkpoint_path: "bcloning.ckpt"
+all_model_checkpoint_paths: "bcloning.ckpt"

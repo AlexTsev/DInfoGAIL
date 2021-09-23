@@ -1,0 +1,6 @@
+model_checkpoint_path: "exp0discriminator.ckpt"
+all_model_checkpoint_paths: "exp0discriminator.ckpt-1200"
+all_model_checkpoint_paths: "exp0discriminator.ckpt-1300"
+all_model_checkpoint_paths: "exp0discriminator.ckpt-1400"
+all_model_checkpoint_paths: "exp0discriminator.ckpt-1500"
+all_model_checkpoint_paths: "exp0discriminator.ckpt"
