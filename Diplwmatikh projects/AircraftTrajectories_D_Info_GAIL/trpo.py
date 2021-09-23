@@ -16,11 +16,7 @@ from collections import deque
 from critic import Critic
 from utils import conjugate_gradient, set_from_flat, kl, self_kl, \
     flat_gradient, get_flat, discount, line_search, gauss_log_prob, visualize, gradient_summary, \
-<<<<<<< HEAD
     unnormalize_action, unnormalize_observation, unnormalize_observation_metar, unnormalize_observation2
-=======
-    unnormalize_action, unnormalize_observation, unnormalize_observation2
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 import random
 
 
@@ -36,17 +32,10 @@ import random
 config = tf.ConfigProto()
 
 # Don't pre-allocate memory; allocate as-needed
-<<<<<<< HEAD
 config.gpu_options.allow_growth = True
 
 # Only allow a total of half the GPU memory to be allocated
 config.gpu_options.per_process_gpu_memory_fraction = 0.6
-=======
-#config.gpu_options.allow_growth = True
-
-# Only allow a total of half the GPU memory to be allocated
-config.gpu_options.per_process_gpu_memory_fraction = 0.7
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
 
 class ClonosEncoder(object):
@@ -190,11 +179,7 @@ class Discriminator(object):
 
 class TRPOAgent(object):
 
-<<<<<<< HEAD
     def __init__(self, env, observation_dimensions=10, latent_dimensions=3, action_dimensions=3):
-=======
-    def __init__(self, env, observation_dimensions=4, latent_dimensions=3, action_dimensions=3):
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
         """
         Initializes the agent's parameters and constructs the flowgraph.
         :param env: Environment
@@ -209,10 +194,7 @@ class TRPOAgent(object):
         self.counter = 0
         self.counter2 = 0
         self.init = True
-<<<<<<< HEAD
 
-=======
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
         self.env = env
         self.observation_dimensions = observation_dimensions
         self.action_dimensions = action_dimensions
@@ -388,11 +370,7 @@ class TRPOAgent(object):
         act = mu
         return act
 
-<<<<<<< HEAD
     def plot_vae_test(self, ploti, latent_var, e, savepath):
-=======
-    def plot_vae_test(self, ploti, latent_var, e):
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
         ploti = np.asarray(ploti)
         latent_var = np.asarray(latent_var)
         ploti_size = ploti.size
@@ -400,11 +378,7 @@ class TRPOAgent(object):
         e = np.asarray(e)
 
         ploti = ploti[:ploti_size].copy()
-<<<<<<< HEAD
         save_path = os.getcwd() + savepath.format(e)#'/VAE/results_gumbel_softmax/plot/aviation/epoch{}_aviation_latents.png'
-=======
-        save_path = os.getcwd() + '/VAE/results_gumbel_softmax/plot/aviation/epoch{}_aviation_latents.png'.format(e)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
         pred_context = latent_var[:ploti_size].copy()
         fig = plt.figure(figsize=(8, 8))
         ax = fig.add_subplot(1, 1, 1)
@@ -424,7 +398,6 @@ class TRPOAgent(object):
             out_file = myconfig['output_dir']+'/exp'+str(myconfig['exp'])+'_'+fname+'_bcloning_results.csv'
             action_out_file = myconfig['output_dir']+'/exp'+str(myconfig['exp'])+'_'+fname+'_actions_bcloning_results.csv'
         elif vae:
-<<<<<<< HEAD
             out_file = '../../../VAE/results_gumbel_softmax/checkpoint/run8-enriched_Metar(5modes)/trpo_plugins/0_VAE_results-Metar(3modes).csv'
             action_out_file = '../../../VAE/results_gumbel_softmax/checkpoint/run8-enriched_Metar(5modes)/trpo_plugins/0_actions_VAE_results-Metar(3modes).csv'
 
@@ -438,25 +411,6 @@ class TRPOAgent(object):
                               "Relative_humidity_isobaric,Temperature_isobaric,Wind_speed_gust_surface,"
                               "u-component_of_wind_isobaric,v-component_of_wind_isobaric,drct,sknt,alti,vsby,gust,mode" +
                               "\n")
-=======
-            out_file = 'VAE/results_gumbel_softmax/checkpoint/run11-raw(5modes)/trpo_plugins/0_VAE_results.csv'
-            action_out_file = 'VAE/results_gumbel_softmax/checkpoint/run11-raw(5modes)/trpo_plugins/0_actions_VAE_results.csv'
-
-            enc_saver = tf.train.Saver(self.model2.weights)
-            enc_saver.restore(self.sess,"VAE/results_gumbel_softmax/checkpoint/run11-raw(5modes)/trpo_plugins/encoder/encoder_model_e2000.ckpt")  # run2(batch-32-modes3)
-            saver = tf.train.Saver(self.model.weights)
-            saver.restore(self.sess,"VAE/results_gumbel_softmax/checkpoint/run11-raw(5modes)/trpo_plugins/decoder/decoder_model_e2000.ckpt")  # run2(batch-32-modes3)
-
-            with open(out_file, 'w') as results, open(action_out_file, 'w') as action_results:
-                results.write("episode,longitude,latitude,altitude,timestamp,mode" +
-                              "\n")
-                """
-                                results.write("episode,longitude,latitude,altitude,timestamp,Pressure_surface,"
-                              "Relative_humidity_isobaric,Temperature_isobaric,Wind_speed_gust_surface,"
-                              "u-component_of_wind_isobaric,v-component_of_wind_isobaric,mode" +
-                              "\n")
-                """
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                 action_results.write("episode,dlon,dlat,dalt\n")
 
                 actions = []
@@ -473,11 +427,7 @@ class TRPOAgent(object):
                     steps = 0
                     r_i = []
                     norm_observation, observation = self.env.reset()
-<<<<<<< HEAD
                     obs_unormalized = unnormalize_observation_metar(observation)
-=======
-                    obs_unormalized = unnormalize_observation2(observation)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                     #print('obs:', observation)
                     dec_input1, latent_init, arg = self.init_encoder(observation)
 
@@ -520,11 +470,7 @@ class TRPOAgent(object):
                         actions.append(action)
                         total_reward += reward
                         action = unnormalize_action(action)
-<<<<<<< HEAD
                         obs_unormalized2 = unnormalize_observation_metar(observation2)
-=======
-                        obs_unormalized2 = unnormalize_observation2(observation2)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
                         self.plot_i_test.append(t)
                         self.init = False
@@ -538,13 +484,8 @@ class TRPOAgent(object):
 
                             np1 = np.asarray(self.plot_i_test)
                             np2 = np.asarray(self.plot_test_latent_var)
-<<<<<<< HEAD
                             print('np1_s:', np1.size)
                             print('np2_s:', np2.size)
-=======
-                            #print('np1_s:', np1.size)
-                            #print('np2_s:', np2.size)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                             #self.plot_vae_test(self.plot_i_test, self.plot_test_latent_var, i_episode)
                             break
                         else:
@@ -565,46 +506,24 @@ class TRPOAgent(object):
                     # self.sess.close()
                 return actions, obs, discounted_rewards, total_rewards
         else:
-<<<<<<< HEAD
             out_file = myconfig['output_dir']+'/exp'+str(myconfig['exp'])+'_'+fname+'_D-Info_GAIL_results(Metar-5modes).csv'
             action_out_file = myconfig['output_dir'] + '/exp'+str(myconfig['exp'])+'_'+fname+'_D-Info_GAIL_actions_results(Metar-5modes).csv'
 
             enc_saver = tf.train.Saver(self.model2.weights)
             enc_saver.restore(self.sess, "VAE/results_gumbel_softmax/checkpoint/run8-enriched_Metar(5modes)/trpo_plugins/encoder/encoder_model_e2000.ckpt")  # run2(batch-32-modes3)
-=======
-            out_file = myconfig['output_dir']+'/exp'+str(myconfig['exp'])+'_'+fname+'_D-INFO_GAIL_results(RAW-5modes).csv'
-            action_out_file = myconfig['output_dir'] + '/exp'+str(myconfig['exp'])+'_'+fname+'_D-INFO_GAIL_actions_results(RAW-5modes).csv'
-
-            enc_saver = tf.train.Saver(self.model2.weights)
-            enc_saver.restore(self.sess, "VAE/results_gumbel_softmax/checkpoint/run11-raw(5modes)/trpo_plugins/encoder/encoder_model_e2000.ckpt")  # run2(batch-32-modes3)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
             saver = tf.train.Saver(self.model.weights)
             saver.restore(self.sess, myconfig['output_dir']+'output/exp'+myconfig['exp']+"model.ckpt")
 
             with open(out_file, 'w') as results, open(action_out_file, 'w') as action_results:
-<<<<<<< HEAD
                 results.write("episode,longitude,latitude,altitude,timestamp,Pressure_surface,"
                               "Relative_humidity_isobaric,Temperature_isobaric,Wind_speed_gust_surface,"
                               "u-component_of_wind_isobaric,v-component_of_wind_isobaric,drct,sknt,alti,vsby,gust,mode" +
                               "\n")
-=======
-                results.write("episode,longitude,latitude,altitude,timestamp,mode" +
-                              "\n")
-                """
-                results.write("episode,longitude,latitude,altitude,timestamp,Pressure_surface,"
-                              "Relative_humidity_isobaric,Temperature_isobaric,Wind_speed_gust_surface,"
-                              "u-component_of_wind_isobaric,v-component_of_wind_isobaric,mode" +
-                              "\n")
-                """
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                 action_results.write("episode,dlon,dlat,dalt\n")
 
                 actions = []
                 obs = []
-<<<<<<< HEAD
                 i = []
-=======
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                 discounted_rewards = []
                 total_rewards = []
                 print('Episodes,Reward')
@@ -617,11 +536,7 @@ class TRPOAgent(object):
                     steps = 0
                     r_i = []
                     norm_observation, observation = self.env.reset()
-<<<<<<< HEAD
                     obs_unormalized = unnormalize_observation_metar(observation)
-=======
-                    obs_unormalized = unnormalize_observation2(observation)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                     #print('obs:', observation)
                     dec_input1, latent_init, arg = self.init_encoder(observation)
 
@@ -664,11 +579,7 @@ class TRPOAgent(object):
                         actions.append(action)
                         total_reward += reward
                         action = unnormalize_action(action)
-<<<<<<< HEAD
                         obs_unormalized2 = unnormalize_observation_metar(observation2)
-=======
-                        obs_unormalized2 = unnormalize_observation2(observation2)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
                         self.plot_i_test.append(t)
                         self.init = False
@@ -682,15 +593,9 @@ class TRPOAgent(object):
 
                             np1 = np.asarray(self.plot_i_test)
                             np2 = np.asarray(self.plot_test_latent_var)
-<<<<<<< HEAD
                             print('np1_s:', np1.size)
                             print('np2_s:', np2.size)
                             self.plot_vae_test(self.plot_i_test, self.plot_test_latent_var, i_episode, '/VAE/results_gumbel_softmax/plot/aviation/epoch{}_aviation_latents.png')
-=======
-                            #print('np1_s:', np1.size)
-                            #print('np2_s:', np2.size)
-                            self.plot_vae_test(self.plot_i_test, self.plot_test_latent_var, i_episode)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                             break
                         else:
                             line = ""
@@ -736,11 +641,6 @@ class TRPOAgent(object):
             counter_idx = 0
 
         while not_enough_samples:
-<<<<<<< HEAD
-=======
-            test = 0
-            test_rewa = []
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
             episode += 1
             self.total_episodes += 1
             actions = []
@@ -773,11 +673,6 @@ class TRPOAgent(object):
                     log_actions.append(log_action)
 
                 raw_observation, observation, reward_env, done = self.env.step(action, t)
-<<<<<<< HEAD
-=======
-                test+=1
-                test_rewa.append(reward_env)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
                 total_env_reward += reward_env
 
@@ -787,13 +682,8 @@ class TRPOAgent(object):
                     #print("%i/%i" % (t + 100, self.path_size))
                     continue
                 if (self.counter == seq_end) or done:
-<<<<<<< HEAD
                     # print('DONE2')
                     # print('timestep:', t)
-=======
-                    #print('DONE2')
-                    #print('timestep:', t)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                     self.counter = 0
                     counter_idx += 1
                     index = index2
@@ -816,15 +706,11 @@ class TRPOAgent(object):
         if mini_batch % 100 == 0:
             np.savetxt(myconfig['exp']+'_'+str(mini_batch)+"_observation_log.csv", np.asarray(log_observations)
                        , delimiter=',', header='longitude,latitude,altitude,timestamp,'+
-<<<<<<< HEAD
                                                'Pressure_surface,Relative_humidity_isobaric,'+
                                                'Temperature_isobaric,Wind_speed_gust_surface,'+
                                                'u-component_of_wind_isobaric,'+
                                                'v-component_of_wind_isobaric,'+
                                                'drct,sknt,alti,vsby,gust,'+'latent1,latent2,latent3,episode'
-=======
-                                                'latent1,latent2,latent3,episode'
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                        , comments='')
             np.savetxt(myconfig['exp']+'_'+str(mini_batch) + "_action_log.csv", np.asarray(log_actions),
                        delimiter=',', header='dlon,dlat,dalt,episode', comments='')
@@ -886,17 +772,10 @@ class TRPOAgent(object):
         """
 
         encoder_saver = tf.train.Saver(self.model2.weights)
-<<<<<<< HEAD
         encoder_saver.restore(self.sess,"./VAE/results_gumbel_softmax/checkpoint/run8-enriched_Metar(5modes)/trpo_plugins/encoder/encoder_model_e2000.ckpt")
         saver = tf.train.Saver(self.model.weights)
         # saver.restore(self.sess, "./checkpoint/bcloning.ckpt")
         saver.restore(self.sess, "./VAE/results_gumbel_softmax/checkpoint/run8-enriched_Metar(5modes)/trpo_plugins/decoder/decoder_model_e2000.ckpt")
-=======
-        encoder_saver.restore(self.sess,"VAE/results_gumbel_softmax/checkpoint/run11-raw(5modes)/trpo_plugins/encoder/encoder_model_e2000.ckpt")
-        saver = tf.train.Saver(self.model.weights)
-        # saver.restore(self.sess, "./checkpoint/bcloning.ckpt")
-        saver.restore(self.sess, "VAE/results_gumbel_softmax/checkpoint/run11-raw(5modes)/trpo_plugins/decoder/decoder_model_e2000.ckpt")
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
         discriminator_saver = tf.train.Saver(self.discriminator.discriminate.weights)
 
         latent_sequence_prob_np, latent_sequence_np = self.run_clonos(expert_observations, init_latent=[1., 0., 0., 0., 0.])
@@ -918,11 +797,7 @@ class TRPOAgent(object):
             flat_actions = np.asarray(flat_actions, dtype=np.float64)
             flat_observations = np.asarray(flat_observations, dtype=np.float64)
             print('len:', len(flat_observations))
-<<<<<<< HEAD
             flat_observations2 = flat_observations[:, :15]#4, 10, 15
-=======
-            flat_observations2 = flat_observations[:, :4] #4, 10, 15
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
             if mini_batch < self.mini_batches:
                 d_loss_before_train, discriminator_loss = self.discriminator.train(expert_observations_batch, expert_actions_batch,
@@ -963,25 +838,16 @@ class TRPOAgent(object):
                 # print('len_rew_log:', len(rewards_log))
 
                 rewards_q2 = np.asarray([[i * 0.01] for i in rewards_log])
-<<<<<<< HEAD
                 #print('rewards_q:', rewards_q2)
                 # print('len_rew_q:', len(rewards_q2))
 
                 reward_t = -self.discriminator.predict(np.array(observations), np.array(actions))
                 #print('rewards_t:', reward_t)
-=======
-                # print('rewards_q:', rewards_q2)
-                # print('len_rew_q:', len(rewards_q2))
-
-                reward_t = -self.discriminator.predict(np.array(observations), np.array(actions))
-                # print('rewards_t:', reward_t)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                 # print('len_rew_t:', len(reward_t))
                 # reward_t = [[i+t for i,t in zip(y, e)] for (y, e) in zip(reward_t, rewards_q2)]
                 # print('reward_t_len:', len(reward_t), 'reward_q_len:', len(rewards_q2))
                 # reward_t = reward_t + rewards_q2
                 # print('reward_t_len:', len(reward_t))
-<<<<<<< HEAD
 
 
                 reward_t = np.asarray([i + j for i, j in zip(reward_t, rewards_q2)])
@@ -996,28 +862,12 @@ class TRPOAgent(object):
                 #print('flatten:', reward_t)
                 discount_r = discount(reward_t, self.gamma)
                 #print('discount:', discount_r)
-=======
-                reward_t = np.asarray([i + j for i, j in zip(reward_t, rewards_q2)])
-                # reward_t = [[sum(i) for i in y] for y in zip(reward_t, rewards_q2)]
-
-                # print('rewards_t-after:', reward_t, '\n, type:', type(reward_t))
-
-                total_reward += np.sum(reward_t)
-                batch_total_rewards.append(total_reward)
-                #reward_t = (reward_t.flatten()).tolist()
-                reward_t = (reward_t.flatten())
-                discount_r = discount(reward_t, self.gamma)
-
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
                 batch_discounted_rewards_to_go.extend(discount_r)
                 obs_episode_np = np.array(observations)
                 v = np.array(self.critic.predict(obs_episode_np)).flatten()
                 v_next = shift(v, -1, cval=0)
                 undiscounted_advantages = reward_t + self.gamma * v_next - v
-<<<<<<< HEAD
                 #print('undiscount:', undiscounted_advantages)
-=======
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
                 discounted_advantages = discount(undiscounted_advantages, self.gamma * self.lamda)
 

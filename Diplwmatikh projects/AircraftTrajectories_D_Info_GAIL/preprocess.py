@@ -2,11 +2,7 @@
 from myconfig import myconfig
 import trpo
 import critic
-<<<<<<< HEAD
 from environment import environment_metar as environment
-=======
-from environment import environment_raw as environment
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 from sklearn.utils import shuffle
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -21,10 +17,6 @@ import tensorflow as tf
 # from continuous.gail_atm import trpo
 # from  continuous.gail_atm import critic
 # from  continuous.gail_atm.environment import environment
-<<<<<<< HEAD
-=======
-from tensorflow.python.client import device_lib
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
 if tf.test.gpu_device_name():
     print('Default GPU Device:{}'.format(tf.test.gpu_device_name()))
@@ -32,13 +24,8 @@ else:
     print("Please install GPU version of TF")
 
 config = tf.ConfigProto()
-<<<<<<< HEAD
 config.gpu_options.allow_growth = True
 config.gpu_options.per_process_gpu_memory_fraction = 0.6
-=======
-#config.gpu_options.allow_growth = True
-config.gpu_options.per_process_gpu_memory_fraction = 0.7
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
 def readArgs():
     parser = argparse.ArgumentParser(description='')
@@ -143,11 +130,7 @@ def load_samples(dir, file):
 
 def plot_policy():
     model, input = trpo.Policy.create_policy(action_dimensions=3,
-<<<<<<< HEAD
                                              observation_dimensions=3)
-=======
-                                       observation_dimensions=3)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
     plot_model(model, show_shapes=True, to_file='policy_model.png')
 
 
@@ -245,7 +228,6 @@ def discriminator_load_test():
                 'altitude_std']
         generator_observations['timestamp'] = (generator_observations['timestamp'] - myconfig['timestamp_avg']) / myconfig[
                 'timestamp_std']
-<<<<<<< HEAD
         generator_observations['Pressure_surface'] = (generator_observations['Pressure_surface'] - myconfig['Pressure_surface_avg']) / myconfig[
             'Pressure_surface_std']
         generator_observations['Relative_humidity_isobaric'] = (generator_observations['Relative_humidity_isobaric'] - myconfig['Relative_humidity_isobaric_avg']) / myconfig[
@@ -258,8 +240,6 @@ def discriminator_load_test():
             'u-component_of_wind_isobaric_std']
         generator_observations['v-component_of_wind_isobaric'] = (generator_observations['v-component_of_wind_isobaric'] - myconfig['v-component_of_wind_isobaric_avg']) / myconfig[
             'v-component_of_wind_isobaric_std']
-=======
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
         generator_actions = generator_actions.values
         generator_observations = generator_observations.values
@@ -284,10 +264,7 @@ def conclude_actions(file):
     expert_new = expert_new.drop(['action_trajectoryID'],axis=1)
     expert_new.to_csv(myconfig['input_dir']+'dataset/enriched_expert_hierarchical_clustering_ds.csv',index=False)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 def dataset_cluster_split(file):
     df = pd.read_csv(file)
     c1 = df[df['Cluster'] == 1]
@@ -344,10 +321,7 @@ def dataset_cluster_split(file):
 
     return train_validation_set_df, test_set_df
 
-<<<<<<< HEAD
 
-=======
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 def split_dataset(file,splits):
     df = pd.read_csv(file)
     flights = df['trajectory_ID'].sort_values().unique()
@@ -499,31 +473,23 @@ def starting_points_2(observations,fname):
 
     for i in range(4):
         pd.DataFrame(observations_prcnt[i], columns=['trajectory_ID', 'longitude', 'latitude',
-<<<<<<< HEAD
                                                      'altitude', 'timestamp', 'Pressure_surface',
                                                      'Relative_humidity_isobaric',
                                                      'Temperature_isobaric',
                                                      'Wind_speed_gust_surface',
                                                      'u-component_of_wind_isobaric',
                                                      'v-component_of_wind_isobaric','drct', 'sknt', 'alti', 'vsby', 'gust']).to_csv(
-=======
-                                                     'altitude', 'timestamp']).to_csv(
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
             myconfig['input_dir'] + '/' + str(int(n[i]*100)) +
             '%_' + fname + '_starting_points.csv',
             index=False,
         )
         pd.DataFrame(trajectories_prcnt[i], columns=['trajectory_ID', 'longitude', 'latitude',
-<<<<<<< HEAD
                                                      'altitude', 'timestamp', 'Pressure_surface',
                                                      'Relative_humidity_isobaric',
                                                      'Temperature_isobaric',
                                                      'Wind_speed_gust_surface',
                                                      'u-component_of_wind_isobaric',
                                                      'v-component_of_wind_isobaric','drct', 'sknt', 'alti', 'vsby', 'gust']).to_csv(
-=======
-                                                     'altitude', 'timestamp']).to_csv(
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
             myconfig['input_dir'] + '/' + str(int(n[i]*100)) +
             '%_' + fname + '_trajectories.csv',
             index=False,
@@ -576,17 +542,10 @@ if args.split_dataset:
 
     obs_train = train_validation_set_df[['trajectory_ID','longitude','latitude','altitude','timestamp','Pressure_surface',
                                          'Relative_humidity_isobaric','Temperature_isobaric','Wind_speed_gust_surface',
-<<<<<<< HEAD
                                          'u-component_of_wind_isobaric','v-component_of_wind_isobaric','drct', 'sknt', 'alti', 'vsby', 'gust']]
     obs_test = test_set_df[['trajectory_ID','longitude','latitude','altitude','timestamp','Pressure_surface',
                                          'Relative_humidity_isobaric','Temperature_isobaric','Wind_speed_gust_surface',
                                          'u-component_of_wind_isobaric','v-component_of_wind_isobaric','drct', 'sknt', 'alti', 'vsby', 'gust']]
-=======
-                                         'u-component_of_wind_isobaric','v-component_of_wind_isobaric']]
-    obs_test = test_set_df[['trajectory_ID','longitude','latitude','altitude','timestamp','Pressure_surface',
-                                         'Relative_humidity_isobaric','Temperature_isobaric','Wind_speed_gust_surface',
-                                         'u-component_of_wind_isobaric','v-component_of_wind_isobaric']]
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
     starting_points_2(obs_test, 'test')
 
@@ -597,13 +556,9 @@ if args.split_dataset:
 else:
     test_df = pd.read_csv(myconfig['input_dir']+'dataset/test_set.csv')
 
-<<<<<<< HEAD
     obs_test_df = test_df[['trajectory_ID','longitude','latitude','altitude','timestamp','Pressure_surface',
                                          'Relative_humidity_isobaric','Temperature_isobaric','Wind_speed_gust_surface',
                                          'u-component_of_wind_isobaric','v-component_of_wind_isobaric','drct', 'sknt', 'alti', 'vsby', 'gust']]
-=======
-    obs_test_df = test_df[['trajectory_ID','longitude','latitude','altitude','timestamp']]
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
     starting_points_2(obs_test_df, 'test')
     test_flight_num = obs_test_df['trajectory_ID'].nunique()
     obs_test = obs_test_df.drop(['trajectory_ID'], axis=1)
@@ -614,13 +569,9 @@ else:
 
     train_df = pd.read_csv(myconfig['input_dir'] + 'dataset/train_set.csv')
 
-<<<<<<< HEAD
     obs_train_df = train_df[['trajectory_ID','longitude','latitude','altitude','timestamp','Pressure_surface',
                                          'Relative_humidity_isobaric','Temperature_isobaric','Wind_speed_gust_surface',
                                          'u-component_of_wind_isobaric','v-component_of_wind_isobaric','drct', 'sknt', 'alti', 'vsby', 'gust']]
-=======
-    obs_train_df = train_df[['trajectory_ID','longitude','latitude','altitude','timestamp']]
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
     obs_train_df.groupby('trajectory_ID').head(1).to_csv(myconfig['input_dir']+'dataset/train_starting_points.csv', index=False)
 
@@ -649,7 +600,6 @@ else:
     myconfig['timestamp_avg'] = obs_train.loc[:, "timestamp"].mean()
     myconfig['timestamp_std'] = obs_train.loc[:, "timestamp"].std()
 
-<<<<<<< HEAD
     myconfig['Pressure_surface_avg'] = obs_train.loc[:, "Pressure_surface"].mean()
     myconfig['Pressure_surface_std'] = obs_train.loc[:, "Pressure_surface"].std()
     myconfig['Relative_humidity_isobaric_avg'] = obs_train.loc[:,"Relative_humidity_isobaric"].mean()
@@ -682,40 +632,6 @@ else:
     actions_test = normalize_actions(actions_test)
 
     #actions_train.to_csv(myconfig['input_dir']+'dataset/actions_train_normalized.csv')
-=======
-    #myconfig['Pressure_surface_avg'] = obs_train.loc[:, "Pressure_surface"].mean()
-    #myconfig['Pressure_surface_std'] = obs_train.loc[:, "Pressure_surface"].std()
-    #myconfig['Relative_humidity_isobaric_avg'] = obs_train.loc[:,"Relative_humidity_isobaric"].mean()
-    #myconfig['Relative_humidity_isobaric_std'] = obs_train.loc[:,"Relative_humidity_isobaric"].std()
-    #myconfig['Temperature_isobaric_avg'] = obs_train.loc[:, "Temperature_isobaric"].mean()
-    #myconfig['Temperature_isobaric_std'] = obs_train.loc[:, "Temperature_isobaric"].std()
-    #myconfig['Wind_speed_gust_surface_avg'] = obs_train.loc[:, "Wind_speed_gust_surface"].mean()
-    #myconfig['Wind_speed_gust_surface_std'] = obs_train.loc[:, "Wind_speed_gust_surface"].std()
-    #myconfig['u-component_of_wind_isobaric_avg'] = obs_train.loc[:, "u-component_of_wind_isobaric"].mean()
-    #myconfig['u-component_of_wind_isobaric_std'] = obs_train.loc[:, "u-component_of_wind_isobaric"].std()
-    #myconfig['v-component_of_wind_isobaric_avg'] = obs_train.loc[:, "v-component_of_wind_isobaric"].mean()
-    #myconfig['v-component_of_wind_isobaric_std'] = obs_train.loc[:, "v-component_of_wind_isobaric"].std()
-
-    #myconfig['drct_avg'] = obs_train.loc[:, "drct"].mean()
-    #myconfig['drct_std'] = obs_train.loc[:, "drct"].std()
-    #myconfig['sknt_avg'] = obs_train.loc[:, "sknt"].mean()
-    #myconfig['sknt_std'] = obs_train.loc[:, "sknt"].std()
-    #myconfig['alti_avg'] = obs_train.loc[:, "alti"].mean()
-    #myconfig['alti_std'] = obs_train.loc[:, "alti"].std()
-    #myconfig['vsby_avg'] = obs_train.loc[:, "vsby"].mean()
-    #myconfig['vsby_std'] = obs_train.loc[:, "vsby"].std()
-    #myconfig['gust_avg'] = obs_train.loc[:, "gust"].mean()
-    #myconfig['gust_std'] = obs_train.loc[:, "gust"].std()
-
-    obs_train = normalize_observations_raw(obs_train)
-    actions_train = normalize_actions(actions_train)
-    # obs_validate = normalize_observations(obs_validate)
-    # actions_validate = normalize_actions(actions_validate)
-    obs_test = normalize_observations_raw(obs_test)
-    actions_test = normalize_actions(actions_test)
-
-    actions_train.to_csv(myconfig['input_dir']+'dataset/actions_train_normalized.csv')
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
     # actions_validate.to_csv(myconfig['input_dir'] + '/actions_validate_normalized.csv')
     actions_test.to_csv(myconfig['input_dir'] + 'dataset/actions_test_normalized.csv')
 
@@ -731,11 +647,7 @@ else:
 
 
 env = environment.Environment(random_choice=True, fname='train')
-<<<<<<< HEAD
 agent = trpo.TRPOAgent(env, action_dimensions=3, latent_dimensions=5, observation_dimensions=15)
-=======
-agent = trpo.TRPOAgent(env, action_dimensions=3, latent_dimensions=5, observation_dimensions=4)
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 print("Starting Training")
 print('obs_tr:', len(obs_train), 'act_tr:', len(actions_train))
 
@@ -762,19 +674,11 @@ print('actions_gail:', len(actions_gail), 'obs_gail:', len(obs_gail), '\n')
 
 #print('Sum of Rewards BC:', sum(total_rewards_bcloning))  # np.mean(total_rewards_vae)
 print('Sum of Rewards VAE:', sum(total_rewards_vae))  # np.mean(total_rewards_vae)
-<<<<<<< HEAD
 print('Sum of Rewards Directed-Info Gail:', sum(total_rewards_gail))  # np.mean(total_rewards_gail)
 
 #print('Mean Reward BC:', np.mean(total_rewards_bcloning))
 print('Mean Reward VAE:', np.mean(total_rewards_vae))
 print('Mean Reward Directed-Info Gail:', np.mean(total_rewards_gail))
-=======
-print('Sum of Rewards Gail:', sum(total_rewards_gail))  # np.mean(total_rewards_gail)
-
-#print('Mean Reward BC:', np.mean(total_rewards_bcloning))
-print('Mean Reward VAE:', np.mean(total_rewards_vae))
-print('Mean Reward Gail:', np.mean(total_rewards_gail))
->>>>>>> eae2860dcbace7eab2353b7eb0af709d393c2f89
 
 #trajectoryID_results(fname)
 
